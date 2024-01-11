@@ -15,8 +15,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
-import { SearchIcon, Loader2, ChevronRight, ChevronLeft } from "lucide-react";
+import {
+  SearchIcon,
+  Loader2,
+  ChevronRight,
+  ChevronLeft,
+  ArrowDown,
+} from "lucide-react";
 import Footer from "./components/Footer";
+import { Badge } from "./components/ui/badge";
 
 const formSchema = z.object({
   imageSearch: z.string().min(2).max(50),
@@ -28,9 +35,15 @@ const IMAGES_PER_PAGE = 20;
 interface Image {
   id: string;
   urls: {
-    regular: string;
+    small: string;
   };
   alt_description: string;
+  links: {
+    download: string;
+  };
+  color: string;
+  height: number;
+  width: number;
 }
 
 export default function App() {
@@ -116,13 +129,33 @@ export default function App() {
           <>
             <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
               {images.map((image) => (
-                <div key={image.id} className="group relative">
-                  <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden shadow-xl lg:aspect-none group-hover:brightness-75 duration-200 delay-75 lg:h-80">
+                <div
+                  key={image.id}
+                  className="group relative shadow-2xl rounded-md"
+                >
+                  <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden lg:aspect-none group-hover:brightness-75 duration-200 delay-75 lg:h-80">
                     <img
-                      src={image.urls.regular}
+                      src={image.urls.small}
                       alt={image.alt_description}
-                      className="h-full w-full object-cover object-center rounded-md lg:h-full lg:w-full"
+                      className="h-full w-full object-cover object-center rounded-t-md lg:h-full lg:w-full"
                     />
+                  </div>
+                  <div className="mt-4 flex justify-between p-4">
+                    <div>
+                      <p>
+                        <Badge variant={"outline"}>{image.color}</Badge>
+                      </p>
+                      <p className="mt-1">
+                        <Badge variant={"outline"}>
+                          {image.width} x {image.height}
+                        </Badge>
+                      </p>
+                    </div>
+                    <Button variant={"outline"} className="z-50" size={"icon"}>
+                      <a href={image.links.download}>
+                        <ArrowDown />
+                      </a>
+                    </Button>
                   </div>
                 </div>
               ))}
