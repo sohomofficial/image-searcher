@@ -138,7 +138,7 @@ export default function App() {
                       <h4 className="text-sm font-semibold">Safe Search</h4>
                       <p className="text-sm font-normal">
                         Turn on to further remove content that may be unsuitable
-                        for younger audiences. Note that we can&apos;t guarantee
+                        for younger audiences. Note that I can&apos;t guarantee
                         that all potentially unsuitable content is removed.
                       </p>
                     </div>
