@@ -158,13 +158,13 @@ export default function App() {
               {images.map((image) => (
                 <div
                   key={image.id}
-                  className="group relative shadow-2xl rounded-md"
+                  className="group relative shadow-2xl rounded-lg"
                 >
                   <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden lg:aspect-none group-hover:brightness-75 duration-200 delay-75 lg:h-80">
                     <img
                       src={image.urls.small}
                       alt={image.alt_description}
-                      className="h-full w-full object-cover object-center rounded-t-md lg:h-full lg:w-full"
+                      className="h-full w-full object-cover object-center rounded-t-lg lg:h-full lg:w-full"
                     />
                   </div>
                   <div className="mt-4 flex justify-between p-4">
