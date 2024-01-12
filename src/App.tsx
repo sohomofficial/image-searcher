@@ -11,6 +11,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 import { Input } from "@/components/ui/input";
 import { useCallback, useEffect, useState } from "react";
@@ -24,6 +29,7 @@ import {
 } from "lucide-react";
 import Footer from "./components/Footer";
 import { Badge } from "./components/ui/badge";
+import { Switch } from "./components/ui/switch";
 
 const formSchema = z.object({
   imageSearch: z.string().min(2).max(50),
@@ -48,6 +54,7 @@ interface Image {
 
 export default function App() {
   const [userInput, setUserInput] = useState("");
+  const [contentFilter, setContentFilter] = useState("low");
   const [images, setImages] = useState<Image[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -67,7 +74,7 @@ export default function App() {
         const { data } = await axios.get(
           `${API_URL}?query=${userInput}&page=${page}&per_page=${IMAGES_PER_PAGE}&client_id=${
             import.meta.env.VITE_ACCESS_KEY
-          }`
+          }&content_filter=${contentFilter}`
         );
         setImages(data.results);
         setTotalPages(data.total_pages);
@@ -77,7 +84,7 @@ export default function App() {
       console.log(error);
       setLoading(false);
     }
-  }, [page, userInput]);
+  }, [contentFilter, page, userInput]);
 
   useEffect(() => {
     fetchImages();
@@ -114,10 +121,30 @@ export default function App() {
                 </FormItem>
               )}
             />
-            <div className="flex justify-center">
+            <div className="flex flex-col justify-center items-center gap-4">
               <Button type="submit">
                 Search <SearchIcon className="ml-2 h-4 w-4" />
               </Button>
+              <p className="flex items-center gap-x-2 text-sm font-medium">
+                <Switch
+                  onCheckedChange={(checked) =>
+                    setContentFilter(checked ? "high" : "low")
+                  }
+                />
+                <HoverCard>
+                  <HoverCardTrigger>Safe Search</HoverCardTrigger>
+                  <HoverCardContent>
+                    <div className="space-y-1">
+                      <h4 className="text-sm font-semibold">Safe Search</h4>
+                      <p className="text-sm font-normal">
+                        Turn on to further remove content that may be unsuitable
+                        for younger audiences. Note that we can&apos;t guarantee
+                        that all potentially unsuitable content is removed.
+                      </p>
+                    </div>
+                  </HoverCardContent>
+                </HoverCard>
+              </p>
             </div>
           </form>
         </Form>
