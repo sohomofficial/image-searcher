@@ -15,7 +15,7 @@ It is a powerful image search web application fueled by the Unsplash API, design
 
 ## Environment Variables
 
-To run this project, you will need to add the following environment variables to your .env file. If you don't have .env file, create one.
+To run this project, you will need to add the following environment variables to your .env file.
 
 `VITE_ACCESS_KEY`:Your_Unsplash_Access_Key
 
