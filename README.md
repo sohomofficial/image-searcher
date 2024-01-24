@@ -8,6 +8,8 @@ It is a powerful image search web application fueled by the Unsplash API, design
 
 - Massive collection
 - Simple & optimised UI
+- Safe Search option
+- Ads free image searching
 - Responsiveness
 
 
