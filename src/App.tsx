@@ -20,16 +20,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
-import {
-  SearchIcon,
-  Loader2,
-  ChevronRight,
-  ChevronLeft,
-  ArrowDown,
-} from "lucide-react";
+import { SearchIcon, ChevronRight, ChevronLeft, ArrowDown } from "lucide-react";
 import Footer from "./components/Footer";
 import { Badge } from "./components/ui/badge";
 import { Switch } from "./components/ui/switch";
+import ImageSkeleton from "./components/ImageSkeleton";
 
 const formSchema = z.object({
   imageSearch: z.string().min(2).max(50),
@@ -71,6 +66,7 @@ export default function App() {
     try {
       if (userInput) {
         setLoading(true);
+        await new Promise((resolve) => setTimeout(resolve, 2000));
         const { data } = await axios.get(
           `${API_URL}?query=${userInput}&page=${page}&per_page=${IMAGES_PER_PAGE}&client_id=${
             import.meta.env.VITE_ACCESS_KEY
@@ -149,9 +145,7 @@ export default function App() {
           </form>
         </Form>
         {loading ? (
-          <div className="mt-6 flex justify-center">
-            <Loader2 className="h-8 w-8 animate-spin" />
-          </div>
+          <ImageSkeleton />
         ) : (
           <>
             <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
