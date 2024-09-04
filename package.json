@@ -17,7 +17,7 @@
     "@radix-ui/react-switch": "^1.0.3",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@vercel/analytics": "^1.2.2",
-    "axios": "^1.6.7",
+    "axios": "^1.7.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "lucide-react": "^0.364.0",
